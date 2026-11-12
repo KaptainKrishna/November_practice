@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
-  const [formData, setFormData] = useState({
+  const formModel = {
     fullname: "",
     email: "",
     mobile: "",
     password: "",
     role: "",
-  });
+  };
+  const [formData, setFormData] = useState(formModel);
 
   const handleChange = (e) => {
     setFormData({
@@ -20,12 +21,13 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    setFormData(formModel);
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Create Account</h2>
+        <h2 className="text-2xl font-bold text-center mb-3">Create Account</h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
