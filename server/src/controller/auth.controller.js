@@ -1,5 +1,6 @@
 import UserModel from "../model/auth.model.js";
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const createUser = async (req, res) => {
   try {

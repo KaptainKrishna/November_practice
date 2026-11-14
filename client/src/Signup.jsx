@@ -34,8 +34,7 @@ const Signup = () => {
       setFormData(formModel);
       navigate("/login")
     } catch (error) {
-        console.log("Status:", error.response?.status);
-        console.log("Backend error:", error.response?.data);
+      
       setMessage(error.response?.data?.message || "Something went wrong!");
       console.log(error);
     } finally {

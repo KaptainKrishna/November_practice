@@ -7,6 +7,7 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    role: "",
   });
 
   const handleChange = (e) => {
@@ -28,6 +29,7 @@ const Login = () => {
       setFormData({
         email: "",
         password: "",
+        role: "",
       });
 
       navigate("/practice");
@@ -44,7 +46,6 @@ const Login = () => {
         <p className="text-gray-500 text-center mb-6">Login to your account</p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-          {/* Email */}
           <div>
             <label className="block font-medium mb-2">Email</label>
 
@@ -59,7 +60,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="block font-medium mb-2">Password</label>
 
@@ -73,8 +73,20 @@ const Login = () => {
               required
             />
           </div>
+          <div>
+            <label className="block font-medium mb-2">Role</label>
 
-          {/* Forgot Password */}
+            <input
+              type="text"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              placeholder="Enter your role"
+              className="w-full border border-gray-300 rounded-lg p-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              required
+            />
+          </div>
+
           <div className="text-right">
             <a href="#" className="text-blue-600 text-sm hover:underline">
               Forgot Password?
