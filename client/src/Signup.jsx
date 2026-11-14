@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const formModel = {
@@ -10,6 +11,9 @@ const Signup = () => {
     role: "",
   };
   const [formData, setFormData] = useState(formModel);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const navigate=useNavigate()
 
   const handleChange = (e) => {
     setFormData({
@@ -18,16 +22,34 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    setFormData(formModel);
+    try {
+      setLoading(true);
+      setMessage("");
+      const { data } = await axios.post("http://localhost:8080/user", formData);
+
+      console.log("Signup successfull", data);
+      setMessage("Account created successfully!");
+      setFormData(formModel);
+      navigate("/login")
+    } catch (error) {
+        console.log("Status:", error.response?.status);
+        console.log("Backend error:", error.response?.data);
+      setMessage(error.response?.data?.message || "Something went wrong!");
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-3">Create Account</h2>
+        {message && (
+          <p className="text-center text-sm mb-3 text-blue-600">{message}</p>
+        )}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
@@ -91,7 +113,7 @@ const Signup = () => {
               className="w-full border rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500"
               required
             >
-              <option value="select-role">Select Role</option>
+              <option value="">Select Role</option>
               <option value="admin">Admin</option>
               <option value="practice">Practice</option>
               <option value="sales-team">Sales Team</option>

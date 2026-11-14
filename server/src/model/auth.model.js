@@ -27,7 +27,7 @@ const authSchema = new Schema(
     role: {
       type: String,
       required: true,
-      enum: ["admin", "sales team", "practice"],
+      enum: ["admin", "sales-team", "practice"],
     },
   },
   { timestamps: true },
